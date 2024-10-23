@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<h1>강의 리스트</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>강의명</th>
+      <th>수강인원현황</th>
+	  <th>학점</th>
+      <th>비고</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @class_lists.each do |class_list| %>
+      <tr>
+        <td><%= class_list.c_name %></td>
+        <td><%= ClassStatus.where(class_list_id: class_list.id).size %> / <%= class_list.c_account %></td>
+		<td><%= class_list.credits %></td>
+		<td><%= button_to "강의신청", class_statuses_path(class_status: { user_id: current_user.id, class_list_id: class_list.id} ) %></td>
+		<td><%= link_to '삭제', class_list_path(class_list), method: :delete, data: {confirm: '정말 삭제하시겠습니까?'} %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Class List', new_class_list_path %>
+
+<h1>내가 신청한 강의목록</h1>
+
+<table>
+	<thead>
+	<tr>
+		<th>강의명</th>
+		<th>수강인원 현황</th>
+		<th>신청 학점</th>
+		<th>비고</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+		<% @my_class_lists.each do |class_list| %>
+		<tr>
+			<td><%= ClassList.find(class_list.class_list_id).c_name %></td>
+			<td><%= ClassList.find(class_list.class_list_id).c_account %></td>
+			<td><%= ClassList.find(class_list.class_list_id).credits %></td>
+			<td><%= link_to "신청취소", class_status_path(class_list.id), method: :delete, data: {confirm: '정말 삭제하시겠습니까?' } %></td>
+		</tr>
+	<% end %>
+	</tbody>
+</table>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>GoormRailsApp</title>
+    <title>RailsEducation</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,6 +10,19 @@
   </head>
 
   <body>
+	  <dir>
+	  	<% if user_signed_in? %>
+		  <%= link_to "회원정보", edit_user_registration_path %> |
+		  <%= link_to "로그아웃", destroy_user_session_path, method: :delete %> |
+		  아이디 : <%= current_user.email %> |
+		  유저 NO. : <%= current_user.id %>
+		<% else %>
+		  <%= link_to "로그인", user_session_path %>
+		  <%= link_to "회원가입", "/users/sign_up" %>
+		<% end %>
+	  </dir>
+	  <hr/>
+	  
     <%= yield %>
   </body>
 </html>

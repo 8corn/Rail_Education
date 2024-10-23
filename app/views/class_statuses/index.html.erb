@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Class Statuses</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Class list</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @class_statuses.each do |class_status| %>
+      <tr>
+        <td><%= class_status.user_id %></td>
+        <td><%= class_status.class_list_id %></td>
+        <td><%= link_to 'Show', class_status %></td>
+        <td><%= link_to 'Edit', edit_class_status_path(class_status) %></td>
+        <td><%= link_to 'Destroy', class_status, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Class Status', new_class_status_path %>
